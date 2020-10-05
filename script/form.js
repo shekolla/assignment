@@ -1,116 +1,127 @@
 let ready = $(document).ready(function () {
-    // hiding these id at first
-    $('.hide-your-information-form').hide();
-    $('.hide-partner-form').hide();
-    $('.city').hide();
-    $(".travelling-with-friends").hide();
-    $(".travelling-with-childrens").hide();
-
   
 
-   // declaring variable for form count and knowing the length of total form 
     var form_count = 1, form_count_form, next_form, total_forms;
     total_forms = $("fieldset").length;
     console.log("form count=" + total_forms);
 
 
-    // showing other hidden field if user wants to travel with partner and don't want to travel 
-    $("input[type='radio']").click(function () {
-        var radioValue = $("input[name='travelling_with_partner']:checked").val();
-
-        // showing field for travelling with partner
-        if (radioValue == 'yes') {
-
-
-            $(".travelling-with-friends").show();
-            $(".travelling-with-childrens").show();
-            $('.hide-your-information-form').show("slow");
-            $('.hide-partner-form').show("slow");
-
-
-        } else {
-            $(".travelling-with-friends").show();
-            $(".travelling-with-childrens").show();
-            $('.hide-your-information-form').show("slow");
-            $('.hide-partner-form').hide("slow");
-        
-
-
-        }
-    });
-
-    // selecting the country and showing respective city
-    $('#countryselector').change(function () {
-        $('.city').hide();
-        $('#' + $(this).val()).show();
-    });
-
-
-
     // code for keyup for making form dynamic of travelling with children with some validation
-    $('#travelling-with-childrens').keyup(function (e) {
+    $('#number-of-people').keyup(function (e) {
         
-        $(".show-form-for-children").html('');
-        if($('#travelling-with-childrens').val()  > 10){
-            $("#error-travelling-with-childrens").html("<p class='error-msg' >maximum 10 children allowed.</p>").show().fadeOut(1500);
+        $(".show-form-for-people-details").html('');
+        if($('#number-of-people').val()  > 10){
+            $("#error-number-of-people").html("<p class='error-msg' >maximum 10 children allowed.</p>").show().fadeOut(1500);
             return false;
         }
         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
         //display error message   
-        $("#error-travelling-with-childrens").html("<p class='error-msg' >Please enter number only.</p>");
-        $("#error-travelling-with-childrens").show().fadeOut(1500)
+        $("#error-number-of-people").html("<p class='error-msg' >Please enter number only.</p>");
+        $("#error-number-of-people").show().fadeOut(1500)
                return false;
         }
 
-        $('#travelling-with-childrens').val();
-        var length = ($('#travelling-with-childrens').val());
+        $('#number-of-people').val();
+        var length = ($('#number-of-people').val());
         for (i = 0; i < length; i++) {
-            let html_data = `<br><input type="text" name="children_name_${i}" id="your-children-name-${i}" class="children-id-${i} form-control" placeholder="plese enter name"><div class="error-children-name-${i}></div>"<br>										
-                            <input type="date" id="ÿour-children-dob-${i}" class="children-id-${i} form-control" name="your_children_dob_${i}" placeholder="Date of birth"><div class="error-children-dob-${i}></div>"<br>
-                            <input type="radio" class="children-id-${i}" id="ÿour-male-gender-${i}" value="male" name="gender">male
-                            <input type="radio" class="children-id-${i}" id="ÿour-female-gender-${i}" value="female" name="gender">female<br>
-                <button type="button" class="children-id-${i}"  onclick="removeChildren(${i})">remove children</button><br><hr class="children-id-${i}"><br>`;
+            let html_data = `								<div class="col-id-6">
+            <b>Please fill Person ${i + 1} Detail</b>
+            <div class="col-id-12 ">
+                <label for="your_given_name_${i}">Given Name </label><div id="error-given-name-${i}"></div>
+                <input type="text" class="form-control" id="given-name-${i}"  name="given_name_${i}" placeholder="please enter given name" required>
+            </div>
 
-            $('.show-form-for-children').append(html_data)
+            <div class="col-id-12 ">
+                <label for="your_family_name_${i}">Family Name </label><div id="error-family-name-${i}"></div>
+                <input type="text" class="form-control" id="family-name-${i}"  name="family_name_${i}" placeholder="please enter family name" required>
+            </div>
+
+            <div class="col-id-12">
+            <label for="gender">Gender</label>	<div id="error-gender"></div>
+            <input type="radio" name="gender_${i}" value="male">Male
+            <input type="radio" name="gender_${i}" value="female">Female
+            </div>
+
+            <div class="col-id-12">
+                <label for="dob_${i}">Date Of Birth</label>	<div id="error-dob-${i}"></div>
+                <input type="date" class="form-control" id="ÿour-dob-${i}"  name="your_dob" placeholder="Date of birth" required>
+            </div>
+
+            <div class="col-id-12">
+                <label for="country_of_birth_${i}">Country Of Birth</label>	<div id="error-country-of-birth-${i}"></div>
+                <input type="radio" name="country_of_birth_${i}" value="Australia">Australia<br>
+                <input type="radio" name="country_of_birth_${i}" value="New Zealand">New Zealand<br>
+                <input type="radio" name="country_of_birth_${i}" value="Fiji">Fiji<br>
+                <input type="radio" name="country_of_birth_${i}" value="">Other <input type="text" name="other_country" />
+            </div>
+                
+            <div class="col-id-12">
+                <label for="arrival_year_${i}">In what year did you arrive in Australia?</label><div id="error-arrival_year-${i}"></div>
+                <input type="text" class="form-control" id="ÿour-arrival-year-${i}"  name="arrival_year" placeholder="please enter your arrival year" required>
+            </div>
+            <div class="col-id-12">
+                <label for="australian_citizen_${i}">Are you an Australian Citizen?</label><div id="error-australian-citizen-${i}"></div><br>
+                <input type="radio" value="yes" name="australian_citizen_${i}">Yes
+                <input type="radio" value="no" name="australian_citizen_${i}">No
+            </div>
+        <div class="col-id-12">
+            <label for="language_${i}">Do you speak a Language other than English?</label> <br>
+
+            <input type="checkbox" name="language_${i}" value="EnglishOnly" checked>&nbsp;English Only&nbsp;&nbsp;
+            <input type="checkbox" name="language_${i}" value="Mandarin">&nbsp;Mandarin&nbsp;&nbsp;
+            <input type="checkbox" name="language_${i}" value="Italian">&nbsp;Italian&nbsp;&nbsp;
+            <input type="checkbox" name="language_${i}" value="Arabic">&nbsp;Arabic&nbsp;&nbsp;<br/>
+            <input type="checkbox" name="language_${i}" value="Cantonese">&nbsp;Cantonese&nbsp;&nbsp;
+            <input type="checkbox" name="language_${i}" value="Greek">&nbsp;Greek&nbsp;&nbsp;
+            <input type="checkbox" name="language_${i}" value="">Other <input type="text" name="others" />
+        </div>
+
+        <div class="col-id-12">
+            <label for="speaking_ability_${i}">Do you speak a Language other than English?</label> <br>
+
+            <input type="radio" name="speaking_ability_${i}" value="VeryWell" checked>&nbsp;Very Well&nbsp;&nbsp;
+            <input type="radio" name="speaking_ability_${i}" value="Well">&nbsp;Well&nbsp;&nbsp;
+            <input type="radio" name="speaking_ability_${i}" value="Not Well">&nbsp;Not Well&nbsp;&nbsp;
+            <input type="radio" name="speaking_ability_${i}" value="Not At All">&nbsp;Not At All&nbsp;&nbsp;<br/>
+        </div>
+        <div class="col-id-12 ">
+            <label for="secondary_school_${i}"> What is the highest year of secondary school the person has completed?</label><br>
+
+             <select id="secondary-school" name="secondary_school_${i}" class="form-control">
+                <option value="year 7" selected="">year 7</option>
+                <option value="year 8">year 8</option>
+                <option value="year 9">year 9</option>
+                <option value="year 10">year 10</option>
+                <option value="year 11">year 11</option>
+                <option value="year 12">year 12</option>
+                <option value="Did not go to high school">Did not go to high school</option>
+             </select>
+        </div>
+        <div class="col-id-12 ">
+            <label for="highest_qualification_${i}"> What is the highest year of secondary school the person has completed?</label><br>
+
+            <select id="highest-qualification" name="highest_qualification_${i}" class="form-control">
+                <option value="Cert. I" selected="">Cert. I</option>
+                <option value="Cert. II">Cert. II</option>
+                <option value="Cert. III">Cert. III</option>
+                <option value="Cert. IV">Cert. IV</option>
+                <option value="Bachelor Degree">Bachelor Degree</option>
+                <option value="Associate Diploma">Associate Diploma</option>
+                <option value="Diploma">Diploma</option>
+                <option value="Masters">Masters</option>
+                <option value="PhD">PhD</option>
+                <option value="Do not have any highest qualification">Do not have any highest qualification</option>
+            </select>
+        </div>
+            <div class="col-id-12">
+                <label for="main_field_${i}">What is the main field of study of your Highest Qualification?</label><div id="error-main-field-${i}"></div>
+                <input type="text" class="form-control" id="main-field-${i}"  name="your_occupation-${i}" placeholder="please enter your main field" required>
+            </div>
+        </div>`;
+
+            $('.show-form-for-people-details').append(html_data)
         }
-
-
-
-
     });
-
-    // code for keyup for making form dynamic of travelling with friend with some validation
-
-    $('#travelling-with-friends').keyup(function (e) {
-        $(".show-form-for-friend").html('');
-        if($('#travelling-with-friends').val()  > 10){
-            $("#error-travelling-with-friends").html("<p class='error-msg' >maximum 10 friend allowed.</p>").show().fadeOut(1500);
-            return false;
-        }
-        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-        //display error message   
-        $("#error-travelling-with-friends").html("<p class='error-msg' >Please enter number only.</p>");
-        $("#error-travelling-with-friends").show().fadeOut(1500)
-               return false;
-        }
-        $('#travelling-with-friends').val();
-        var length = ($('#travelling-with-friends').val());
-        for (i = 0; i < length; i++) {
-            let html_data = `<input type="text" name="friend_name_${i}" class="friend-id-${i} form-control" placeholder="plese enter name"><br>
-                            <input type="date" id="ÿour-friend-dob" class="friend-id-${i} form-control" name="your_friend_dob_${i}" placeholder="Date of birth"><br>
-                            <input type="text" id="ÿour-friend-occupation" class="friend-id-${i} form-control" name="your_friend_occupation_${i}" placeholder="Occupation"><br>
-                            <br>
-
-                <button type="button" class="friend-id-${i}"  onclick="removeFriend(${i})">remove children</button><br><hr class="friend-id-${i}><br>`;
-
-            $('.show-form-for-friend').append(html_data)
-        }
-
-    });
-    
-    
-
-    
 
     //  function after clicking next button. shows next fieldset and hide previos field
     $(".next").click(function () {
@@ -121,134 +132,129 @@ let ready = $(document).ready(function () {
         validation = true;
         next_step=true;
         console.log("next form value" + next_form);
-       
-        if( $("input[name='travelling_with_partner']:checked").val()==null){
-            $('#error-travelling-with-partner').html("<p class='error-msg' >please choose one option.</p>").show().fadeOut(3000);
-
-            return false;
-        }
-
+        console.log($('#number-of-people').val());
         if (validation) {
             if(form_count ==1){
                 console.log('i am in' +form_count);
 
 
-                if( $("input[name='travelling_with_partner']:checked").val()=="yes"){
+                if(true){
+                    next_step=true;
+                    // console.log('i am inside validation');
+                    // console.log($('.your-information-form').html('shekolla'));
+                    // var your_name=$('#ÿour-name').val();
+                    // var your_name_character=$('#ÿour-name').val().length;
+                    // // validating fullname
+                    // if(your_name=="") {
+                    //     $('#error-fullname').html("<p class='error-msg' >Name is required.</p>");
+                    //     $('#error-fullname').show();
+                    //     next_step=false;
+                    // }else if(your_name_character > 30 ) {
+                    //     $('#error-fullname').html("<p class='error-msg' >Maximum 30 characters allowed</p>");
 
-                    console.log('i am inside validation');
-                    var your_name=$('#ÿour-name').val();
-                    var your_name_character=$('#ÿour-name').val().length;
-                    // validating fullname
-                    if(your_name=="") {
-                        $('#error-fullname').html("<p class='error-msg' >Name is required.</p>");
-                        $('#error-fullname').show();
-                        next_step=false;
-                    }else if(your_name_character > 30 ) {
-                        $('#error-fullname').html("<p class='error-msg' >Maximum 30 characters allowed</p>");
+                    //     next_step=false;
 
-                        next_step=false;
-
-                    }else{
-                        $('#error-fullname').hide();
-                        next_step=true;
-                    }
-
-
-
+                    // }else{
+                    //     $('#error-fullname').hide();
+                    //     next_step=true;
+                    // }
 
 
 
-                    //validating date of birth  field
-                    var your_dob=$('#ÿour-dob').val();
-                    if(your_dob=="") {
-                        $('#error-dob').html("<p class='error-msg' >Date of birth is required.</p>");
-                        next_step=false;
-                    }else{
-                        $('#error-dob').hide();
-                        next_step=true;
-                    }
-                    //validating date of occupation field
-                    var your_occupation=$('#ÿour-occupation').val();
-                    if(your_occupation=="") {
-                        $('#error-occupation').html("<p class='error-msg' >Occupation is required.</p>");
-                        next_step=false;
-                    }else{
-                        $('#error-occupation').hide();
-                        next_step=true;
-                    }
-                    //validating date of occupation field
-                    var your_dietary=$('#ÿour-dietary-requirement').val();
-                    if(your_dietary=="") {
-                        $('#error-dietary-requirement').html("<p class='error-msg' >Dietary field is required.</p>");
-                        next_step=false;
-                    }else{
-                        $('#error-dietary-requirement').hide();
-                        next_step=true;
-                    }
 
 
 
-                    console.log('i am inside validation');
-                    var your_partner_name=$('#ÿour-partner-name').val();
-                    var your_partner_name_character=$('#ÿour-partner-name').val().length;
-                    // validating fullname
-                    if(your_partner_name=="") {
-                        $('#error-partner-fullname').html("<p class='error-msg' >Name is required.</p>");
-                        next_step=false;
-                    }else if(your_partner_name_character > 30 ) {
-                        $('#error-partner-fullname').html("<p class='error-msg' >Maximum 30 characters allowed</p>");
+                    // //validating date of birth  field
+                    // var your_dob=$('#ÿour-dob').val();
+                    // if(your_dob=="") {
+                    //     $('#error-dob').html("<p class='error-msg' >Date of birth is required.</p>");
+                    //     next_step=false;
+                    // }else{
+                    //     $('#error-dob').hide();
+                    //     next_step=true;
+                    // }
+                    // //validating date of occupation field
+                    // var your_occupation=$('#ÿour-occupation').val();
+                    // if(your_occupation=="") {
+                    //     $('#error-occupation').html("<p class='error-msg' >Occupation is required.</p>");
+                    //     next_step=false;
+                    // }else{
+                    //     $('#error-occupation').hide();
+                    //     next_step=true;
+                    // }
+                    // //validating date of occupation field
+                    // var your_dietary=$('#ÿour-dietary-requirement').val();
+                    // if(your_dietary=="") {
+                    //     $('#error-dietary-requirement').html("<p class='error-msg' >Dietary field is required.</p>");
+                    //     next_step=false;
+                    // }else{
+                    //     $('#error-dietary-requirement').hide();
+                    //     next_step=true;
+                    // }
 
-                        next_step=false;
 
-                    }else{
-                        $('#error-partner-fullname').hide();
-                        next_step=true;
-                    }
 
-                    //validating email field
-                    var pattern= /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                    var your_email =$('#ÿour-partner-emailID').val();
-                    var valid_test=pattern.test(your_email);
+                    // console.log('i am inside validation');
+                    // var your_partner_name=$('#ÿour-partner-name').val();
+                    // var your_partner_name_character=$('#ÿour-partner-name').val().length;
+                    // // validating fullname
+                    // if(your_partner_name=="") {
+                    //     $('#error-partner-fullname').html("<p class='error-msg' >Name is required.</p>");
+                    //     next_step=false;
+                    // }else if(your_partner_name_character > 30 ) {
+                    //     $('#error-partner-fullname').html("<p class='error-msg' >Maximum 30 characters allowed</p>");
 
-                    if(your_email=="") {
-                        $('#error-partner-emailID').html("<p class='error-msg' >email is required.</p>");
-                        next_step=false;
+                    //     next_step=false;
 
-                    }else if(valid_test==false){
-                        $('#error-partner-emailID').html("<p class='error-msg' >email should follow pattern.</p>");
-                        next_step=false;
-                    }else{
-                        $('#error-partner-emailID').hide();
-                        next_step=true;
-                    }
+                    // }else{
+                    //     $('#error-partner-fullname').hide();
+                    //     next_step=true;
+                    // }
 
-                    //validating date of birth  field
-                    var your_dob=$('#ÿour-partner-dob').val();
-                    if(your_dob=="") {
-                        $('#error-partner-dob').html("<p class='error-msg' >Date of birth is required.</p>");
-                        next_step=false;
-                    }else{
-                        $('#error-partner-dob').hide();
-                        next_step=true;
-                    }
-                    //validating date of occupation field
-                    var your_occupation=$('#ÿour-partner-occupation').val();
-                    if(your_occupation=="") {
-                        $('#error-partner-occupation').html("<p class='error-msg' >Occupation is required.</p>");
-                        next_step=false;
-                    }else{
-                        $('#error-partner-occupation').hide();
-                        next_step=true;
-                    }
-                    //validating date of occupation field
-                    var your_dietary=$('#ÿour-partner-dietary-requirement').val();
-                    if(your_dietary=="") {
-                        $('#error-partner-dietary-requirement').html("<p class='error-msg' >Dietary field is required.</p>");
-                        next_step=false;
-                    }else{
-                        $('#error-partner-dietary-requirement').hide();
-                        next_step=true;
-                    }
+                    // //validating email field
+                    // var pattern= /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    // var your_email =$('#ÿour-partner-emailID').val();
+                    // var valid_test=pattern.test(your_email);
+
+                    // if(your_email=="") {
+                    //     $('#error-partner-emailID').html("<p class='error-msg' >email is required.</p>");
+                    //     next_step=false;
+
+                    // }else if(valid_test==false){
+                    //     $('#error-partner-emailID').html("<p class='error-msg' >email should follow pattern.</p>");
+                    //     next_step=false;
+                    // }else{
+                    //     $('#error-partner-emailID').hide();
+                    //     next_step=true;
+                    // }
+
+                    // //validating date of birth  field
+                    // var your_dob=$('#ÿour-partner-dob').val();
+                    // if(your_dob=="") {
+                    //     $('#error-partner-dob').html("<p class='error-msg' >Date of birth is required.</p>");
+                    //     next_step=false;
+                    // }else{
+                    //     $('#error-partner-dob').hide();
+                    //     next_step=true;
+                    // }
+                    // //validating date of occupation field
+                    // var your_occupation=$('#ÿour-partner-occupation').val();
+                    // if(your_occupation=="") {
+                    //     $('#error-partner-occupation').html("<p class='error-msg' >Occupation is required.</p>");
+                    //     next_step=false;
+                    // }else{
+                    //     $('#error-partner-occupation').hide();
+                    //     next_step=true;
+                    // }
+                    // //validating date of occupation field
+                    // var your_dietary=$('#ÿour-partner-dietary-requirement').val();
+                    // if(your_dietary=="") {
+                    //     $('#error-partner-dietary-requirement').html("<p class='error-msg' >Dietary field is required.</p>");
+                    //     next_step=false;
+                    // }else{
+                    //     $('#error-partner-dietary-requirement').hide();
+                    //     next_step=true;
+                    // }
                 }else{
                     console.log('i am inside validation');
                     var your_name=$('#ÿour-name').val();
