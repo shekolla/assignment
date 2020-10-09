@@ -37,19 +37,19 @@ let ready = $(document).ready(function () {
             </div>
 
             <div class="col-id-12">
-            <label for="gender">Gender</label>	<div id="error-gender"></div>
+            <label for="gender">Gender</label>	<div id="error-gender-${i}"></div>
             <input type="radio" name="gender_${i}" value="male">Male
             <input type="radio" name="gender_${i}" value="female">Female
             </div>
 
             <div class="col-id-12">
                 <label for="dob_${i}">Date Of Birth</label>	<div id="error-dob-${i}"></div>
-                <input type="date" class="form-control" id="ÿour-dob-${i}"  name="your_dob" placeholder="Date of birth" required>
+                <input type="date" class="form-control" id="ÿour-dob-${i}"  name="your_dob-${i}" placeholder="Date of birth" required>
             </div>
 
             <div class="col-id-12">
                 <label for="country_of_birth_${i}">Country Of Birth</label>	<div id="error-country-of-birth-${i}"></div>
-                <input type="radio" name="country_of_birth_${i}" value="Australia">Australia<br>
+                <input type="radio" name="country_of_birth_${i}" value="Australia" selected>Australia<br>
                 <input type="radio" name="country_of_birth_${i}" value="New Zealand">New Zealand<br>
                 <input type="radio" name="country_of_birth_${i}" value="Fiji">Fiji<br>
                 <input type="radio" name="country_of_birth_${i}" value="">Other <input type="text" name="other_country" />
@@ -61,7 +61,7 @@ let ready = $(document).ready(function () {
             </div>
             <div class="col-id-12">
                 <label for="australian_citizen_${i}">Are you an Australian Citizen?</label><div id="error-australian-citizen-${i}"></div><br>
-                <input type="radio" value="yes" name="australian_citizen_${i}">Yes
+                <input type="radio" value="yes" name="australian_citizen_${i} selected">Yes
                 <input type="radio" value="no" name="australian_citizen_${i}">No
             </div>
         <div class="col-id-12">
@@ -115,7 +115,7 @@ let ready = $(document).ready(function () {
         </div>
             <div class="col-id-12">
                 <label for="main_field_${i}">What is the main field of study of your Highest Qualification?</label><div id="error-main-field-${i}"></div>
-                <input type="text" class="form-control" id="main-field-${i}"  name="your_occupation-${i}" placeholder="please enter your main field" required>
+                <input type="text" class="form-control" id="main-field-${i}"  name="main_field_${i}" placeholder="please enter your main field" required>
             </div>
         </div>`;
 
@@ -136,185 +136,79 @@ let ready = $(document).ready(function () {
         if (validation) {
             if(form_count ==1){
                 console.log('i am in' +form_count);
+                let noOfPeople = $('#number-of-people').val();
+                for (let peopleNo = 0; peopleNo < noOfPeople; peopleNo += 1) {
 
+                    console.log('i am inside validation', peopleNo);
 
-                if(true){
-                    next_step=true;
-                    // console.log('i am inside validation');
-                    // console.log($('.your-information-form').html('shekolla'));
-                    // var your_name=$('#ÿour-name').val();
-                    // var your_name_character=$('#ÿour-name').val().length;
-                    // // validating fullname
-                    // if(your_name=="") {
-                    //     $('#error-fullname').html("<p class='error-msg' >Name is required.</p>");
-                    //     $('#error-fullname').show();
-                    //     next_step=false;
-                    // }else if(your_name_character > 30 ) {
-                    //     $('#error-fullname').html("<p class='error-msg' >Maximum 30 characters allowed</p>");
-
-                    //     next_step=false;
-
-                    // }else{
-                    //     $('#error-fullname').hide();
-                    //     next_step=true;
-                    // }
-
-
-
-
-
-
-                    // //validating date of birth  field
-                    // var your_dob=$('#ÿour-dob').val();
-                    // if(your_dob=="") {
-                    //     $('#error-dob').html("<p class='error-msg' >Date of birth is required.</p>");
-                    //     next_step=false;
-                    // }else{
-                    //     $('#error-dob').hide();
-                    //     next_step=true;
-                    // }
-                    // //validating date of occupation field
-                    // var your_occupation=$('#ÿour-occupation').val();
-                    // if(your_occupation=="") {
-                    //     $('#error-occupation').html("<p class='error-msg' >Occupation is required.</p>");
-                    //     next_step=false;
-                    // }else{
-                    //     $('#error-occupation').hide();
-                    //     next_step=true;
-                    // }
-                    // //validating date of occupation field
-                    // var your_dietary=$('#ÿour-dietary-requirement').val();
-                    // if(your_dietary=="") {
-                    //     $('#error-dietary-requirement').html("<p class='error-msg' >Dietary field is required.</p>");
-                    //     next_step=false;
-                    // }else{
-                    //     $('#error-dietary-requirement').hide();
-                    //     next_step=true;
-                    // }
-
-
-
-                    // console.log('i am inside validation');
-                    // var your_partner_name=$('#ÿour-partner-name').val();
-                    // var your_partner_name_character=$('#ÿour-partner-name').val().length;
-                    // // validating fullname
-                    // if(your_partner_name=="") {
-                    //     $('#error-partner-fullname').html("<p class='error-msg' >Name is required.</p>");
-                    //     next_step=false;
-                    // }else if(your_partner_name_character > 30 ) {
-                    //     $('#error-partner-fullname').html("<p class='error-msg' >Maximum 30 characters allowed</p>");
-
-                    //     next_step=false;
-
-                    // }else{
-                    //     $('#error-partner-fullname').hide();
-                    //     next_step=true;
-                    // }
-
-                    // //validating email field
-                    // var pattern= /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                    // var your_email =$('#ÿour-partner-emailID').val();
-                    // var valid_test=pattern.test(your_email);
-
-                    // if(your_email=="") {
-                    //     $('#error-partner-emailID').html("<p class='error-msg' >email is required.</p>");
-                    //     next_step=false;
-
-                    // }else if(valid_test==false){
-                    //     $('#error-partner-emailID').html("<p class='error-msg' >email should follow pattern.</p>");
-                    //     next_step=false;
-                    // }else{
-                    //     $('#error-partner-emailID').hide();
-                    //     next_step=true;
-                    // }
-
-                    // //validating date of birth  field
-                    // var your_dob=$('#ÿour-partner-dob').val();
-                    // if(your_dob=="") {
-                    //     $('#error-partner-dob').html("<p class='error-msg' >Date of birth is required.</p>");
-                    //     next_step=false;
-                    // }else{
-                    //     $('#error-partner-dob').hide();
-                    //     next_step=true;
-                    // }
-                    // //validating date of occupation field
-                    // var your_occupation=$('#ÿour-partner-occupation').val();
-                    // if(your_occupation=="") {
-                    //     $('#error-partner-occupation').html("<p class='error-msg' >Occupation is required.</p>");
-                    //     next_step=false;
-                    // }else{
-                    //     $('#error-partner-occupation').hide();
-                    //     next_step=true;
-                    // }
-                    // //validating date of occupation field
-                    // var your_dietary=$('#ÿour-partner-dietary-requirement').val();
-                    // if(your_dietary=="") {
-                    //     $('#error-partner-dietary-requirement').html("<p class='error-msg' >Dietary field is required.</p>");
-                    //     next_step=false;
-                    // }else{
-                    //     $('#error-partner-dietary-requirement').hide();
-                    //     next_step=true;
-                    // }
-                }else{
-                    console.log('i am inside validation');
-                    var your_name=$('#ÿour-name').val();
-                    var your_name_character=$('#ÿour-name').val().length;
-                    // validating fullname
+                    let givenName = $(`#given-name-${peopleNo}`).val();
+                    let familyName = $('#family-name-${i}').val();
+                    // validating givenName
                     if(your_name=="") {
-                        $('#error-fullname').html("<p class='error-msg' >Name is required.</p>");
+                        $(`#error-given-name-${peopleNo}`).html("<p class='error-msg' >Given Name is required.</p>");
+                        $(`#error-given-name-${peopleNo}`).show();
                         next_step=false;
-                    }else if(your_name_character > 30 ) {
-                        $('#error-fullname').html("<p class='error-msg' >Maximum 30 characters allowed</p>");
+                    }else if(givenName.length > 30 ) {
+                        $(`#error-given-name-${peopleNo}`).html("<p class='error-msg' >Maximum 30 characters allowed</p>");
 
                         next_step=false;
 
                     }else{
-                        $('#error-fullname').hide();
+                        $(`#error-given-name-${peopleNo}`).hide();
+                        next_step=true;
+                    }
+
+
+
+                    // validating FamilyName
+                    if(familyName=="") {
+                        $(`#error-family-name-${peopleNo}`).html("<p class='error-msg' >Family Name is required.</p>");
+                        $(`#error-family-name-${peopleNo}`).show();
+                        next_step=false;
+                    }else if(familyName.length > 30 ) {
+                        $(`#error-family-name-${peopleNo}`).html("<p class='error-msg' >Maximum 30 characters allowed</p>");
+
+                        next_step=false;
+
+                    }else{
+                        $(`#error-family-name-${peopleNo}`).hide();
                         next_step=true;
                     }
 
 
 
                     //validating date of birth  field
-                    var your_dob=$('#ÿour-dob').val();
+                    var your_dob=$(`#ÿour-dob-${i}`).val();
                     if(your_dob=="") {
-                        $('#error-dob').html("<p class='error-msg' >Date of birth is required.</p>");
+                        $(`#error-dob-${1}`).html("<p class='error-msg' >Date of birth is required.</p>");
                         next_step=false;
                     }else{
-                        $('#error-dob').hide();
+                        $(`#error-dob-${1}`).hide();
+                        next_step=true;
+                    }
+
+    
+                    //validating year of arrival  field
+                    var your_arrival = $(`ÿour-arrival-year-${i}`).val();
+                    if(your_arrival=="") {
+                        $(`#error-arrival-year-${i}`).html("<p class='error-msg' >Year of Arrival is required.</p>");
+                        next_step=false;
+                    }else{
+                        $(`#error-arrival-year-${i}`).hide();
                         next_step=true;
                     }
 
 
-
-                    //validating date of occupation field
-                    var your_occupation=$('#ÿour-occupation').val();
-                    if(your_occupation=="") {
-                        $('#error-occupation').html("<p class='error-msg' >Occupation is required.</p>");
-                        $('#error-occupation').show();
+                    //validating Main field
+                    var your_arrival = $(`main-field-${i}`).val();
+                    if(your_arrival=="") {
+                        $(`#error-main-field-${i}`).html("<p class='error-msg' >Main Field is required.</p>");
                         next_step=false;
                     }else{
-                        $('#error-occupation').hide();
+                        $(`#error-main-field-${i}`).hide();
                         next_step=true;
                     }
-                    //validating date of occupation field
-                    var your_dietary=$('#ÿour-dietary-requirement').val();
-                    if(your_dietary=="") {
-                        $('#error-dietary-requirement').html("<p class='error-msg' >Dietary field is required.</p>");
-                        next_step=false;
-                    }else{
-                        $('#error-dietary-requirement').hide();
-                        next_step=true;
-                    }
-
-
-
-
-                    console.log("inside else next_step status"+next_step);
-
-
                 }
-           
             }
             if(form_count==2){
                 console.log(next_step);
