@@ -52,7 +52,7 @@ let ready = $(document).ready(function () {
                 <input type="radio" name="country_of_birth_${i}" value="Australia" checked>Australia<br>
                 <input type="radio" name="country_of_birth_${i}" value="New Zealand">New Zealand<br>
                 <input type="radio" name="country_of_birth_${i}" value="Fiji">Fiji<br>
-                <input type="radio" name="country_of_birth_${i}" value="">Other <input type="text" name="other_country" />
+                <input type="radio" name="country_of_birth_${i}" value="" >Other <input type="text" name="other_country_${i}" />
             </div>
                 
             <div class="col-id-12">
@@ -67,17 +67,17 @@ let ready = $(document).ready(function () {
         <div class="col-id-12">
             <label for="language_${i}">Do you speak a Language other than English?</label> <br>
 
-            <input type="checkbox" name="language_${i}" value="EnglishOnly" checked>&nbsp;English Only&nbsp;&nbsp;
-            <input type="checkbox" name="language_${i}" value="Mandarin">&nbsp;Mandarin&nbsp;&nbsp;
-            <input type="checkbox" name="language_${i}" value="Italian">&nbsp;Italian&nbsp;&nbsp;
-            <input type="checkbox" name="language_${i}" value="Arabic">&nbsp;Arabic&nbsp;&nbsp;<br/>
-            <input type="checkbox" name="language_${i}" value="Cantonese">&nbsp;Cantonese&nbsp;&nbsp;
-            <input type="checkbox" name="language_${i}" value="Greek">&nbsp;Greek&nbsp;&nbsp;
-            <input type="checkbox" name="language_${i}" value="">Other <input type="text" name="others" />
+            <input type="checkbox" name="language_${i}" class="language_checkbox_${i}" id="EnglishOnly-${i}" value="EnglishOnly" checked>&nbsp;English Only&nbsp;&nbsp;
+            <input type="checkbox" name="language_${i}" class="language_checkbox_${i}" value="Mandarin">&nbsp;Mandarin&nbsp;&nbsp;
+            <input type="checkbox" name="language_${i}" class="language_checkbox_${i}" value="Italian">&nbsp;Italian&nbsp;&nbsp;
+            <input type="checkbox" name="language_${i}" class="language_checkbox_${i}" value="Arabic">&nbsp;Arabic&nbsp;&nbsp;<br/>
+            <input type="checkbox" name="language_${i}" class="language_checkbox_${i}" value="Cantonese">&nbsp;Cantonese&nbsp;&nbsp;
+            <input type="checkbox" name="language_${i}" class="language_checkbox_${i}" value="Greek">&nbsp;Greek&nbsp;&nbsp;
+            <input type="checkbox" name="language_${i}" class="language_checkbox_${i}" value="" >Other <input type="text" name="others_languages_${i}" />
         </div>
 
         <div class="col-id-12">
-            <label for="speaking_ability_${i}">Do you speak a Language other than English?</label> <br>
+            <label for="speaking_ability_${i}">How well do you speak English?</label> <br>
 
             <input type="radio" name="speaking_ability_${i}" value="VeryWell" checked>&nbsp;Very Well&nbsp;&nbsp;
             <input type="radio" name="speaking_ability_${i}" value="Well">&nbsp;Well&nbsp;&nbsp;
@@ -203,8 +203,6 @@ let ready = $(document).ready(function () {
 
                     //validating Main field
                     let main_field = $(`#main-field-${peopleNo}`).val() || '';
-                    console.log(main_field);
-                    console.log($(`main-field-${peopleNo}`).val());
 
                     if(main_field=="") {
                         $(`#error-main-field-${peopleNo}`).html("<p class='error-msg' >Main Field is required.</p>");
@@ -212,6 +210,15 @@ let ready = $(document).ready(function () {
                     }else{
                         $(`#error-main-field-${peopleNo}`).hide();
                     }
+
+                    // // For removing others checks when checkedOn EnglishOnly
+                    // $(`input:checkbox[name="language_${peopleNo}"]`).change(
+                    //     function(){
+                    //         if ($(this).is(':checked') && $(this).val() == 'EnglishOnly') {
+                    //             $(`.language_checkbox_${peopleNo}`).prop('checked', false);
+                    //             $(`#EnglishOnly-${peopleNo}`).prop("checked", true);
+                    //         }
+                    //     });
                 }
             }
             if(form_count==2){
