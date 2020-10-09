@@ -134,10 +134,14 @@ let ready = $(document).ready(function () {
         console.log("next form value" + next_form);
         console.log($('#number-of-people').val());
         if (validation) {
-            if(form_count ==1){
+            if(form_count==1){
                 next_step=true;
                 console.log('i am in' +form_count);
                 let noOfPeople = $('#number-of-people').val();
+                if (noOfPeople < 1) {
+                    $(`#error-number-of-people`).html("<p class='error-msg' >Number of People should be atleast one</p>");
+                    next_step=false;
+                }
                 for (let peopleNo = 0; peopleNo < noOfPeople; peopleNo += 1) {
 
                     console.log('i am inside validation', peopleNo);
@@ -212,18 +216,24 @@ let ready = $(document).ready(function () {
             }
             if(form_count==2){
                 console.log(next_step);
-
+                next_step=true;
                 console.log('i am in'+ form_count);
-                    //validating date of occupation field
-                    var your_traveldate=$('#preffered-travel-date').val();
-                    if(your_traveldate=="") {
-                        $('#error-traveldate').html("<p class='error-msg' >travel date is required.</p>");
+                    // validating monthly download field
+                    let monthly_download=$('#monthly-download').val() || '';
+                    if(monthly_download=="") {
+                        $('#error-monthly-download').html("<p class='error-msg' >Please Enter Monthly Download if no internet enter 0</p>");
                         next_step=false;
-                console.log(next_step);
-
                     }else{
-                        $('#error-traveldate').hide();
-                        next_step=true;
+                        $('#error-monthly-download').hide();
+                    }
+
+                    // validating monthly download field
+                    let no_of_bedrooms=$('#bedrooms').val() || '';
+                    if(no_of_bedrooms=="") {
+                        $('#error-bedrooms').html("<p class='error-msg' >Please Enter No of Bedrooms</p>");
+                        next_step=false;
+                    }else{
+                        $('#error-bedrooms').hide();
                     }
             }
             
@@ -270,6 +280,19 @@ let ready = $(document).ready(function () {
         setProgressBar(--form_count);
     });
 
+
+    if( $("input[name='electric_vehicles']:checked").val()=='yes'){	
+
+        // <div class="col-id-12">
+        //     <label for="speaking_ability_${i}">Do you speak a Language other than English?</label> <br>
+
+        //     <input type="radio" name="speaking_ability_${i}" value="VeryWell" checked>&nbsp;Very Well&nbsp;&nbsp;
+        //     <input type="radio" name="speaking_ability_${i}" value="Well">&nbsp;Well&nbsp;&nbsp;
+        //     <input type="radio" name="speaking_ability_${i}" value="Not Well">&nbsp;Not Well&nbsp;&nbsp;
+        //     <input type="radio" name="speaking_ability_${i}" value="Not At All">&nbsp;Not At All&nbsp;&nbsp;<br/>
+        // </div>
+
+    }
 
 
     setProgressBar(form_count);
@@ -344,16 +367,3 @@ let ready = $(document).ready(function () {
         }
     })
 });
-
-// remove dynamically created specific form field of children
-function removeChildren(i) {
-    $('.children-id-' + i).remove();
-    
-   
-}
-
-// remove dynamically created specific form field of friend
-
-function removeFriend(i) {
-    $('.friend-id-' + i).remove();
-}
