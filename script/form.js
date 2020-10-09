@@ -138,7 +138,7 @@ let ready = $(document).ready(function () {
                 next_step=true;
                 console.log('i am in' +form_count);
                 let noOfPeople = $('#number-of-people').val();
-                if (noOfPeople < -1) {
+                if (noOfPeople < 1) {
                     $(`#error-number-of-people`).html("<p class='error-msg' >Number of People should be atleast one</p>");
                     next_step=false;
                 }
