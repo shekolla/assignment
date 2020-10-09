@@ -1,12 +1,12 @@
 let ready = $(document).ready(function () {
-  
+    $(".show-form-for-electric-vehicles").hide();
 
     var form_count = 1, form_count_form, next_form, total_forms;
     total_forms = $("fieldset").length;
     console.log("form count=" + total_forms);
 
 
-    // code for keyup for making form dynamic of travelling with children with some validation
+    // code for keyup for making form dynamic of people in Dwelling
     $('#number-of-people').keyup(function (e) {
         
         $(".show-form-for-people-details").html('');
@@ -138,7 +138,7 @@ let ready = $(document).ready(function () {
                 next_step=true;
                 console.log('i am in' +form_count);
                 let noOfPeople = $('#number-of-people').val();
-                if (noOfPeople < 1) {
+                if (noOfPeople < -1) {
                     $(`#error-number-of-people`).html("<p class='error-msg' >Number of People should be atleast one</p>");
                     next_step=false;
                 }
@@ -235,6 +235,14 @@ let ready = $(document).ready(function () {
                     }else{
                         $('#error-bedrooms').hide();
                     }
+
+                    let electric_vehicles_check = $("input[name='electric_vehicles']:checked").val() || '';
+                    if(electric_vehicles_check=="") {
+                        $('#error-electric-vehicles').html("<p class='error-msg' >Please select a Yes or No</p>");
+                        next_step=false;
+                    }else{
+                        $('#error-electric-vehicles').hide();
+                    }
             }
             
 
@@ -280,21 +288,6 @@ let ready = $(document).ready(function () {
         setProgressBar(--form_count);
     });
 
-
-    if( $("input[name='electric_vehicles']:checked").val()=='yes'){	
-
-        // <div class="col-id-12">
-        //     <label for="speaking_ability_${i}">Do you speak a Language other than English?</label> <br>
-
-        //     <input type="radio" name="speaking_ability_${i}" value="VeryWell" checked>&nbsp;Very Well&nbsp;&nbsp;
-        //     <input type="radio" name="speaking_ability_${i}" value="Well">&nbsp;Well&nbsp;&nbsp;
-        //     <input type="radio" name="speaking_ability_${i}" value="Not Well">&nbsp;Not Well&nbsp;&nbsp;
-        //     <input type="radio" name="speaking_ability_${i}" value="Not At All">&nbsp;Not At All&nbsp;&nbsp;<br/>
-        // </div>
-
-    }
-
-
     setProgressBar(form_count);
 
     function setProgressBar(curStep) {
@@ -323,6 +316,16 @@ let ready = $(document).ready(function () {
 
    
   });  
+
+  // For Showing electri vehicles is checked yes
+  $('input:radio[name="electric_vehicles"]').change(
+    function(){
+        if ($(this).is(':checked') && $(this).val() == 'yes') {
+            $(".show-form-for-electric-vehicles").show();
+        } else {
+            $(".show-form-for-electric-vehicles").hide();
+        }
+    });
 
     // help section with toogle functionality
     $('.first-help-section').click(function () {
