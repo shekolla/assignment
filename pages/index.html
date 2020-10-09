@@ -192,12 +192,23 @@ fixed wireless, ADSL, Mobile Broadband, No Internet -->
 	<input type="text" class="form-control" id="bedrooms"  name="bedrooms" placeholder="please enter your no. of bedrooms" required>
 </div>
 
-Are there any electric vehicles garaged at the dwelling?
-
 <div class="col-id-12">
 	<label for="electric_vehicles">Are there any electric vehicles garaged at the dwelling?</label><div id="error-electric-vehicles"></div><br>
-	<input type="radio" value="yes" name="electric_vehicles">Yes
-	<input type="radio" value="no" name="electric_vehicles" checked>No
+	<input type="radio" value="yes" name="electric_vehicles" >Yes
+	<input type="radio" value="no" name="electric_vehicles" >No
+	<div class="show-form-for-electric-vehicles">
+		<div class="col-id-12">
+            <label for="type_of_electrical_vechiles">What type of car</label> <br>
+
+            <input type="radio" name="type_of_electrical_vechiles" value="car" checked>&nbsp;car&nbsp;&nbsp;
+            <input type="radio" name="type_of_electrical_vechiles" value="hybrid-car">&nbsp;hybrid-car&nbsp;&nbsp;
+            <input type="radio" name="type_of_electrical_vechiles" value="SUV">&nbsp;SUV&nbsp;&nbsp;
+            <input type="radio" name="type_of_electrical_vechiles" value="truck">&nbsp;truck&nbsp;&nbsp;
+            <input type="radio" name="type_of_electrical_vechiles" value="hybrid-truck">&nbsp;hybrid-truck&nbsp;&nbsp;
+            <input type="radio" name="type_of_electrical_vechiles" value="scooter">&nbsp;scooter&nbsp;&nbsp;
+            <input type="radio" name="type_of_electrical_vechiles" value="motorcycle">&nbsp;motorcycle&nbsp;&nbsp;<br/>
+        </div>
+	</div>
 </div>
 <input type="button" name="previous" class="previous btn btn-prev col-id-5" value="Previous" />
 <input type="button" name="next" class="next page-two btn btn-next col-id-5" value="Next" />
@@ -243,7 +254,7 @@ Easy -->
 							<input type="radio" name="form_difficulty" value="Hard">&nbsp;Hard&nbsp;&nbsp;
 							<input type="radio" name="form_difficulty" value="OK">&nbsp;OK&nbsp;&nbsp;
 							<input type="radio" name="form_difficulty" value="Easy">&nbsp;Easy&nbsp;&nbsp;
-							<input type="radio" name="form_difficulty" value="Very Easy">&nbsp;Very Easy&nbsp;&nbsp;
+							<input type="radio" name="form_difficulty" value="Very Easy" checked>&nbsp;Very Easy&nbsp;&nbsp;
 						</div>
 
 						<!-- Where the input requirements of each question easy to follow? Very confusing,
@@ -255,7 +266,7 @@ Confusing, OK, Clear, Very Clear -->
 							<input type="radio" name="form_clarity" value="Confusing">&nbsp;Confusing&nbsp;&nbsp;
 							<input type="radio" name="form_clarity" value="OK">&nbsp;OK&nbsp;&nbsp;
 							<input type="radio" name="form_clarity" value="Clear">&nbsp;Clear&nbsp;&nbsp;
-							<input type="radio" name="form_clarity" value="Very Clear">&nbsp;Very Clear&nbsp;&nbsp;
+							<input type="radio" name="form_clarity" value="Very Clear" checked>&nbsp;Very Clear&nbsp;&nbsp;
 						</div>
 						<!-- Did you find the help useful? Yes, No, Did not use it -->
 
@@ -263,13 +274,13 @@ Confusing, OK, Clear, Very Clear -->
 							<label for="form_usefullness">Where the input requirements of each question easy to follow?</label><br>
 							<input type="radio" name="form_usefullness" value="Yes">&nbsp;Yes&nbsp;&nbsp;
 							<input type="radio" name="form_usefullness" value="NO">&nbsp;NO&nbsp;&nbsp;
-							<input type="radio" name="form_usefullness" value="Did not use it">&nbsp;Did not use it&nbsp;&nbsp;
+							<input type="radio" name="form_usefullness" value="Did not use it" checked>&nbsp;Did not use it&nbsp;&nbsp;
 						</div>
 
 						<!-- Any other comments you would like to make? -->
 
 						<div class="col-id-12">
-							<label for="comments">Any other comments you would like to make?</label><div id="error-cooments"></div>
+							<label for="comments">Any other comments you would like to make?</label><div id="error-comments"></div>
 							<textarea rows="4" cols="50"  placeholder="please enter your comments" id="ÿour-comments" name="comments">
 							</textarea>
 
