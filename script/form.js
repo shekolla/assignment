@@ -37,8 +37,8 @@ let ready = $(document).ready(function () {
             </div>
 
             <div class="col-id-12">
-            <label for="gender">Gender</label>	<div id="error-gender-${i}"></div>
-            <input type="radio" name="gender_${i}" value="male">Male
+            <label for="gender_${i}">Gender</label>	<div id="error-gender-${i}"></div>
+            <input type="radio" name="gender_${i}" value="male" checked>Male
             <input type="radio" name="gender_${i}" value="female">Female
             </div>
 
@@ -49,20 +49,20 @@ let ready = $(document).ready(function () {
 
             <div class="col-id-12">
                 <label for="country_of_birth_${i}">Country Of Birth</label>	<div id="error-country-of-birth-${i}"></div>
-                <input type="radio" name="country_of_birth_${i}" value="Australia" selected>Australia<br>
+                <input type="radio" name="country_of_birth_${i}" value="Australia" checked>Australia<br>
                 <input type="radio" name="country_of_birth_${i}" value="New Zealand">New Zealand<br>
                 <input type="radio" name="country_of_birth_${i}" value="Fiji">Fiji<br>
                 <input type="radio" name="country_of_birth_${i}" value="">Other <input type="text" name="other_country" />
             </div>
                 
             <div class="col-id-12">
-                <label for="arrival_year_${i}">In what year did you arrive in Australia?</label><div id="error-arrival_year-${i}"></div>
-                <input type="text" class="form-control" id="ÿour-arrival-year-${i}"  name="arrival_year" placeholder="please enter your arrival year" required>
+                <label for="arrival_year_${i}">In what year did you arrive in Australia?</label><div id="error-arrival-year-${i}"></div>
+                <input type="text" class="form-control" id="ÿour-arrival-year-${i}"  name="arrival_year_${i}" placeholder="please enter your arrival year" required>
             </div>
             <div class="col-id-12">
-                <label for="australian_citizen_${i}">Are you an Australian Citizen?</label><div id="error-australian-citizen-${i}"></div><br>
-                <input type="radio" value="yes" name="australian_citizen_${i} selected">Yes
-                <input type="radio" value="no" name="australian_citizen_${i}">No
+            <label for="australian_citizen_${i}">Are you an Australian Citizen?</label>	<div id="error-australian-citizen-${i}"></div>
+            <input type="radio" name="australian_citizen_${i}" value="yes" checked>Yes
+            <input type="radio" name="australian_citizen_${i}" value="no">No
             </div>
         <div class="col-id-12">
             <label for="language_${i}">Do you speak a Language other than English?</label> <br>
@@ -135,16 +135,16 @@ let ready = $(document).ready(function () {
         console.log($('#number-of-people').val());
         if (validation) {
             if(form_count ==1){
+                next_step=true;
                 console.log('i am in' +form_count);
                 let noOfPeople = $('#number-of-people').val();
                 for (let peopleNo = 0; peopleNo < noOfPeople; peopleNo += 1) {
 
                     console.log('i am inside validation', peopleNo);
 
-                    let givenName = $(`#given-name-${peopleNo}`).val();
-                    let familyName = $('#family-name-${i}').val();
+                    let givenName = $(`#given-name-${peopleNo}`).val() || '';
                     // validating givenName
-                    if(your_name=="") {
+                    if(givenName=="") {
                         $(`#error-given-name-${peopleNo}`).html("<p class='error-msg' >Given Name is required.</p>");
                         $(`#error-given-name-${peopleNo}`).show();
                         next_step=false;
@@ -155,11 +155,9 @@ let ready = $(document).ready(function () {
 
                     }else{
                         $(`#error-given-name-${peopleNo}`).hide();
-                        next_step=true;
                     }
 
-
-
+                    let familyName = $(`#family-name-${peopleNo}`).val() || '';
                     // validating FamilyName
                     if(familyName=="") {
                         $(`#error-family-name-${peopleNo}`).html("<p class='error-msg' >Family Name is required.</p>");
@@ -172,41 +170,43 @@ let ready = $(document).ready(function () {
 
                     }else{
                         $(`#error-family-name-${peopleNo}`).hide();
-                        next_step=true;
                     }
 
 
 
                     //validating date of birth  field
-                    var your_dob=$(`#ÿour-dob-${i}`).val();
+                    let your_dob=$(`#ÿour-dob-${peopleNo}`).val() || '';
                     if(your_dob=="") {
-                        $(`#error-dob-${1}`).html("<p class='error-msg' >Date of birth is required.</p>");
+                        $(`#error-dob-${peopleNo}`).html("<p class='error-msg' >Date of birth is required.</p>");
                         next_step=false;
                     }else{
-                        $(`#error-dob-${1}`).hide();
-                        next_step=true;
+                        $(`#error-dob-${peopleNo}`).hide();
                     }
 
     
                     //validating year of arrival  field
-                    var your_arrival = $(`ÿour-arrival-year-${i}`).val();
+                    let your_arrival = $(`#ÿour-arrival-year-${peopleNo}`).val() || '';
+                    console.log($(`ÿour-arrival-year-${peopleNo}`).val());
+                    console.log(your_arrival);
+
                     if(your_arrival=="") {
-                        $(`#error-arrival-year-${i}`).html("<p class='error-msg' >Year of Arrival is required.</p>");
+                        $(`#error-arrival-year-${peopleNo}`).html("<p class='error-msg' >Year of Arrival is required.</p>");
                         next_step=false;
                     }else{
-                        $(`#error-arrival-year-${i}`).hide();
-                        next_step=true;
+                        $(`#error-arrival-year-${peopleNo}`).hide();
                     }
 
 
                     //validating Main field
-                    var your_arrival = $(`main-field-${i}`).val();
-                    if(your_arrival=="") {
-                        $(`#error-main-field-${i}`).html("<p class='error-msg' >Main Field is required.</p>");
+                    let main_field = $(`#main-field-${peopleNo}`).val() || '';
+                    console.log(main_field);
+                    console.log($(`main-field-${peopleNo}`).val());
+
+                    if(main_field=="") {
+                        $(`#error-main-field-${peopleNo}`).html("<p class='error-msg' >Main Field is required.</p>");
                         next_step=false;
                     }else{
-                        $(`#error-main-field-${i}`).hide();
-                        next_step=true;
+                        $(`#error-main-field-${peopleNo}`).hide();
                     }
                 }
             }
